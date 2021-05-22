@@ -10,7 +10,15 @@ mongoose
   });
 
 
-let Person;
+const Schema = mongoose.Schema;
+const personSchema = new Schema({
+  name: { type: String, require: true },
+  age: Number,
+  favoriteFoods: [String]
+})
+
+//Create Person model from the schema.
+const Person = mongoose.model("Person", personSchema);
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);

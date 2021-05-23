@@ -85,22 +85,26 @@ const findEditThenSave = (personId, done) => {
 //findOneAndUpdate uses ( conditions , update , options , callback ) as arguments.
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-  Person.findOneAndUpdate({name: personName},{age:ageToSet},{new: true},(err,updateDoc) =>{
-    if(err) console.log(err);
-    done(null,updateDoc);
+  Person.findOneAndUpdate({ name: personName }, { age: ageToSet }, { new: true }, (err, updateDoc) => {
+    if (err) console.log(err);
+    done(null, updateDoc);
   })
 };
 
 const removeById = (personId, done) => {
-  Person.findByIdAndRemove(personId,(err, removeddata)=>{
-    if(err) console.log(err);
-    done(null , removeddata);
+  Person.findByIdAndRemove(personId, (err, removeddata) => {
+    if (err) console.log(err);
+    done(null, removeddata);
 
   })
 };
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
+  Person.remove({ name: nameToRemove }, (err, response) => {
+    if (err) return console.log(err);
+    done(null, response);
+  })
 
   done(null /*, data*/);
 };

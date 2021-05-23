@@ -53,14 +53,14 @@ var findPeopleByName = function (personName, done) {
   });
 };
 
-var findOneByFood = function(food, done) {
-  Person.findOne({favoriteFoods: food}, function (err, data) {
+var findOneByFood = function (food, done) {
+  Person.findOne({ favoriteFoods: food }, function (err, data) {
     if (err) return console.log(err);
     done(null, data);
   });
 };
 
-var findPersonById = function(personId, done) {
+var findPersonById = function (personId, done) {
   Person.findById(personId, function (err, data) {
     if (err) return console.log(err);
     done(null, data);
@@ -70,7 +70,16 @@ var findPersonById = function(personId, done) {
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+  Person.findById(personId, function (err, person) {
+    if (err) return console.log(err);
+    person.favoriteFoods.push(foodToAdd);
+    person.save((err2, updatedPerson) => {
+      if (err2) return console.log(err2);
+      done(null, updatedPerson);
+    })
+  });
+
+
 };
 
 const findAndUpdate = (personName, done) => {
